@@ -143,6 +143,8 @@ class Article(object):
         # A property dict for users to store custom data.
         self.additional_data = {}
 
+        self.top_node_xpath = ''
+
     def build(self):
         """Build a lone article from a URL independent of the source (newspaper).
         Don't normally call this method b/c it's good to multithread articles
@@ -241,6 +243,7 @@ class Article(object):
 
         self.top_node = self.extractor.calculate_best_node(self.doc)
         if self.top_node is not None:
+            self.top_node_xpath = self.config.get_parser().getElementPath(self.doc, self.top_node)
             video_extractor = VideoExtractor(self.config, self.top_node)
             self.set_movies(video_extractor.get_videos())
 

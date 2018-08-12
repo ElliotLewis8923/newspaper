@@ -261,3 +261,9 @@ class Parser(object):
             e0 = deepcopy(e0)
             e0.tail = None
         return cls.nodeToString(e0)
+    
+    @classmethod
+    def getElementPath(cls, root, node):
+        tree = lxml.etree.ElementTree(root)
+        path = tree.getpath(node)
+        return path
